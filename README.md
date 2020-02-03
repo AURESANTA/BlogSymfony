@@ -1,6 +1,6 @@
 # BlogSymfony
 
-Projet de site en Symfony - Aurelien SANTANA & Leo YUI
+Projet de site en Symfony - Aurelien SANTANA & Leo YIU
 ! Projet réalisé sans Docker ! 
 
 FONCTIONNALITÉS DU SITE :
@@ -41,7 +41,7 @@ FONCTIONNALITÉS DU SITE :
 	---------------------
 	
 	BASE DE DONNÉES :
-	( Travail réalisé sur mac ) 
+	( Travail réalisé sur mac / MAMP )
 	Nom de la base de données : symfoProject
 	Export fait de la base de données dans le fichier -- phpMyAdmin SQL Dump
 	
