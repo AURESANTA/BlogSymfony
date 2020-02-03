@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des éditeurs{% endblock %}
+
+{% block body %}
+
+    <h1>Liste des éditeurs</h1>
+    {% if is_granted('ROLE_ADMIN') and is_granted('IS_AUTHENTICATED_FULLY') %}
+    <a href="{{ path('add_editor') }}">Ajouter un éditeur</a>
+    {% endif %}
+
+    {% for message in app.flashes('success') %}
+        <div>
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    {% for editor in editors %}
+        <p>
+            {{ editor.societyName}} - {{ editor.nationality}}
+        <a href="{{ path('editor_infos', {'idEditor': editor.id} ) }}">Plus d'infos</a>
+            {% if is_granted('ROLE_ADMIN') and is_granted('IS_AUTHENTICATED_FULLY') %}
+        <a href="{{ path('update_editor', {'idEditor': editor.id} ) }}">Modifier</a>
+        <a href="{{ path('delete_editor', {'idEditor': editor.id} ) }}">Supprimer</a>
+            {% endif %}
+        </p>
+    {% endfor %}
+
+{% endblock %}
+

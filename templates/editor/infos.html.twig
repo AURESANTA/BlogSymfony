@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}EditorController{% endblock %}
+
+{% block body %}
+        <p>
+        {{ editor.nationality}}
+        {{ editor.societyName}}
+        </p>
+
+    <p>Liste des jeux liés à cet éditeur</p>
+    {% for game in editor.videoGames %}
+        <p>{{ game.title}}
+        {{ game.description}}
+        {{ game.creationDate|date('d-m-Y')}}
+        </p>
+    {% endfor %}
+
+{% endblock %}

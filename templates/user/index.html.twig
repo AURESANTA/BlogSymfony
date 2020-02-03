@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User List{% endblock %}
+
+{% block body %}
+    <h1>Liste des utilisateurs</h1>
+
+    {% for message in app.flashes('success') %}
+        <div>
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    <a href="{{ path('add_user') }}">Ajouter un utilisateur</a>
+
+    {% for user in users %}
+        <p>{{ user.firstname}}
+             {{ user.lastname}}
+             {{ user.email}}
+            <a href="{{ path('update_user', {'idUser': user.id} ) }}">Modifier</a>
+            <a href="{{ path('delete_user', {'idUser': user.id} ) }}">Supprimer</a>
+        </p>
+    {% endfor %}
+
+{% endblock %}

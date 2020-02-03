@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Favoris{% endblock %}
+
+{% block body %}
+    <h1>Voici vos favoris, {{ app.user.firstname }}</h1>
+
+    {% for message in app.flashes('success') %}
+        <div>
+            {{ message }}
+        </div>
+    {% endfor %}
+
+
+        {% for favorite in favorites %}
+
+                <p>{{ favorite.title }} - Sur {{ favorite.support }}
+                <a href="{{ path('delete_favorite', {'id': favorite.id}) }}">Retirer des favoris</a></p>
+
+        {% endfor %}
+{% endblock %}

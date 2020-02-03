@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}GameController{% endblock %}
+
+{% block body %}
+
+    {{ game.title}}
+    {{ game.support}}
+
+    <br>
+
+    {{ game.description}}
+    {{ game.creationDate|date('d-m-Y')}}
+
+
+{% endblock %}

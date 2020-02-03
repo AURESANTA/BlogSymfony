@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajout d'utilisateur{% endblock %}
+
+{% block body %}
+    <h1>Modifier un utilisateur</h1>
+
+    {% for message in app.flashes('success') %}
+        <div>
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    {{ form(form) }}
+
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier un jeu{% endblock %}
+
+{% block body %}
+    <h1>Modifier un jeu</h1>
+
+    {% for message in app.flashes('success') %}
+        <div>
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    {{ form(form) }}
+
+{% endblock %}

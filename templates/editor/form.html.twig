@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un éditeur{% endblock %}
+
+
+{% block body %}
+    <h1>Ajouter un éditeur</h1>
+
+    {% for message in app.flashes('success') %}
+        <div>
+            {{ message }}
+        </div>
+    {% endfor %}
+
+   {{ form(form) }}
+
+{% endblock %}

@@ -1,0 +1,194 @@
+-- phpMyAdmin SQL Dump
+-- version 4.9.0.1
+-- https://www.phpmyadmin.net/
+--
+-- Hôte : localhost:8889
+-- Généré le :  lun. 03 fév. 2020 à 20:43
+-- Version du serveur :  5.7.26
+-- Version de PHP :  7.3.8
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+--
+-- Base de données :  `symfoProject`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `editor`
+--
+
+CREATE TABLE `editor` (
+  `id` int(11) NOT NULL,
+  `society_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nationality` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `editor`
+--
+
+INSERT INTO `editor` (`id`, `society_name`, `nationality`) VALUES
+(23, 'Ubisoft', 'France'),
+(24, 'RiotGames', 'US'),
+(25, 'Nintendo', 'Japon');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `migration_versions`
+--
+
+CREATE TABLE `migration_versions` (
+  `version` varchar(14) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `executed_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `migration_versions`
+--
+
+INSERT INTO `migration_versions` (`version`, `executed_at`) VALUES
+('20200117143309', '2020-01-17 14:39:16'),
+('20200117153000', '2020-01-17 15:30:11'),
+('20200203105141', '2020-02-03 10:52:58');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `user`
+--
+
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL,
+  `email` varchar(180) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `roles` json NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `lastname` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `firstname` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `birthdate` date DEFAULT NULL,
+  `creationdate` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `user`
+--
+
+INSERT INTO `user` (`id`, `email`, `roles`, `password`, `lastname`, `firstname`, `birthdate`, `creationdate`) VALUES
+(27, 'admino@gmail.com', '[\"ROLE_ADMIN\"]', '$argon2id$v=19$m=65536,t=4,p=1$61xftnEkpsFuGegfcvqnnA$HJ9mfEF2A0WiOX1sdW3MmzQZ00wEWgE91c35YPtGU4o', 'admin', 'admin', NULL, '2020-02-03'),
+(28, 'Test@gmail.com', '[\"ROLE_USER\"]', '$argon2id$v=19$m=65536,t=4,p=1$lg38kIDa2iyqBDYmbqLAMQ$0Zca0rZtLfYszaHGJF8V8I9OajHAov8N0v1T6iRs+mE', 'Test', 'Test', '2020-01-01', '2020-02-03'),
+(29, 'aurecool@gmail.com', '[\"ROLE_USER\"]', '$argon2id$v=19$m=65536,t=4,p=1$o4nM6u+Lf0cC1buveyCcIg$QKWATXw8Bjgvq4nyhrJH1s0NKmxQAR/OgV1UOwS2LgI', 'Santa', 'Aure', '2020-01-01', '2020-02-03');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `user_video_game`
+--
+
+CREATE TABLE `user_video_game` (
+  `user_id` int(11) NOT NULL,
+  `video_game_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `video_game`
+--
+
+CREATE TABLE `video_game` (
+  `id` int(11) NOT NULL,
+  `editor_id` int(11) DEFAULT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `support` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `creation_date` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `video_game`
+--
+
+INSERT INTO `video_game` (`id`, `editor_id`, `title`, `support`, `description`, `creation_date`) VALUES
+(20, 24, 'LoL', 'PC', 'Un jeu rageant', '2015-01-01'),
+(21, 25, 'Pokemon Jaune', 'Gameboy', 'Un jeu nostalgique', '2015-01-01'),
+(22, 23, 'Watch Dogs', 'PC', 'Un jeu sombre', '2015-01-01');
+
+--
+-- Index pour les tables déchargées
+--
+
+--
+-- Index pour la table `editor`
+--
+ALTER TABLE `editor`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `migration_versions`
+--
+ALTER TABLE `migration_versions`
+  ADD PRIMARY KEY (`version`);
+
+--
+-- Index pour la table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `UNIQ_8D93D649E7927C74` (`email`);
+
+--
+-- Index pour la table `user_video_game`
+--
+ALTER TABLE `user_video_game`
+  ADD PRIMARY KEY (`user_id`,`video_game_id`),
+  ADD KEY `IDX_83DBAABCA76ED395` (`user_id`),
+  ADD KEY `IDX_83DBAABC16230A8` (`video_game_id`);
+
+--
+-- Index pour la table `video_game`
+--
+ALTER TABLE `video_game`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `IDX_24BC6C506995AC4C` (`editor_id`);
+
+--
+-- AUTO_INCREMENT pour les tables déchargées
+--
+
+--
+-- AUTO_INCREMENT pour la table `editor`
+--
+ALTER TABLE `editor`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+
+--
+-- AUTO_INCREMENT pour la table `user`
+--
+ALTER TABLE `user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+
+--
+-- AUTO_INCREMENT pour la table `video_game`
+--
+ALTER TABLE `video_game`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+
+--
+-- Contraintes pour les tables déchargées
+--
+
+--
+-- Contraintes pour la table `user_video_game`
+--
+ALTER TABLE `user_video_game`
+  ADD CONSTRAINT `FK_83DBAABC16230A8` FOREIGN KEY (`video_game_id`) REFERENCES `video_game` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FK_83DBAABCA76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
+
+--
+-- Contraintes pour la table `video_game`
+--
+ALTER TABLE `video_game`
+  ADD CONSTRAINT `FK_24BC6C506995AC4C` FOREIGN KEY (`editor_id`) REFERENCES `editor` (`id`);

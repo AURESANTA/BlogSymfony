@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Blog moche{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body>
+    <a href="{{ path('home') }}">Liste des jeux</a>
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+    <a href="{{ path('editor_list') }}">Liste des éditeurs</a>
+    {% endif %}
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('user_list') }}">Liste des utilisateurs</a>
+    {% endif %}
+
+    {% if app.user %}
+        <div style="float: right"><a href="{{ path('update_user', {'idUser': app.user.id} ) }}">{{ app.user.username }}</a> |  <a href="{{ path('app_logout') }}">Déconnexion</a></div>
+    {% else  %}
+            <div style="float: right">
+             <a href="{{ path('app_login') }}">Connexion</a>
+             <a href="{{ path('app_register') }}">Inscription</a>
+            </div>
+    {% endif %}
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+             <a href="{{ path('favorites') }}">Favoris</a>
+            {% endif %}
+
+    {% block body %}{% endblock %}
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

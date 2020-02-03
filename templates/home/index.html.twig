@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+    <h1>Un blog moche mais fonctionnel</h1>
+
+    <p>Liste des jeux-vidéos</p>
+
+    {% for message in app.flashes('success') %}
+        <div>
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    {% if is_granted('ROLE_ADMIN') and is_granted('IS_AUTHENTICATED_FULLY') %}
+    <a href="{{ path('add_game') }}">Ajouter un jeu</a>
+    {% endif %}
+
+    {% set test = 0 %}
+
+    {% for game in games %}
+        <p>
+       {{ game.title}}
+       -  Sur {{ game.support}}
+        - Créé le {{ game.creationDate|date('d-m-Y')}}
+
+        {% if game.editor is not null %}
+            Éditeur : {{ game.editor.societyName }}
+        {% else %}
+            Pas d'éditeur associé
+        {% endif %}
+
+        <a href="{{ path('game_infos',{'idVideoGame': game.id}) }}">More informations</a>
+        {% if is_granted('ROLE_ADMIN') and is_granted('IS_AUTHENTICATED_FULLY') %}
+            <a href="{{ path('update_game',{'idVideoGame': game.id}) }}">Update Game</a>
+            <a href="{{ path('deletebis_game',{'idVideoGame': game.id}) }}">Delete Game</a>
+        {% endif %}
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <a href="{{ path('add_favorite',{'id': game.id}) }}">Ajouter aux favoris</a>
+            {% endif %}
+
+        </p>
+    {% endfor %}
+
+
+
+{% endblock %}
